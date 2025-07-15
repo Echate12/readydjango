@@ -21,6 +21,11 @@ const Footer = () => {
     t('footer_service5')
   ];
 
+  // Helper to force French-style phone display (LTR, always with '+')
+  const formatPhone = (num: string) => (
+    <span style={{ direction: 'ltr', unicodeBidi: 'bidi-override', fontFamily: 'monospace' }}>{num}</span>
+  );
+
   return (
     <footer className="bg-gradient-to-br from-islamic-green-800 to-islamic-green-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -45,7 +50,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 space-x-reverse text-islamic-green-200">
                 <Phone className="w-5 h-5" />
-                <span>{t('footer_phone')}</span>
+                {formatPhone(t('footer_phone'))}
               </div>
               <div className="flex items-center space-x-3 space-x-reverse text-islamic-green-200">
                 <Mail className="w-5 h-5" />
@@ -53,7 +58,12 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 space-x-reverse text-islamic-green-200">
                 <MapPin className="w-5 h-5" />
-                <span>{t('footer_address')}</span>
+                <span>{t('footer_address').split('\n').map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}</span>
               </div>
             </div>
           </div>
@@ -103,10 +113,7 @@ const Footer = () => {
               <span className="font-semibold">{t('footer_saturday_thursday')}</span>
               <span className="mr-2">{t('footer_saturday_thursday_hours')}</span>
             </div>
-            <div>
-              <span className="font-semibold">{t('footer_friday')}</span>
-              <span className="mr-2">{t('footer_friday_hours')}</span>
-            </div>
+            {/* Removed Friday row completely */}
           </div>
         </div>
 

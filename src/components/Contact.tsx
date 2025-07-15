@@ -81,19 +81,19 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
     {
       icon: Phone,
       title: t('contact_us'),
-      details: ['+212 666462665'],
+      details: ['+212629916074'],
       color: 'islamic-green'
     },
     {
       icon: Mail,
       title: t('email'),
-      details: ['echmohamed2000@gmail.com', 'booking@alaroussihealing.com'],
+      details: ['rahalisahrawi@gmail.com'],
       color: 'islamic-gold'
     },
     {
       icon: MapPin,
       title: t('address'),
-      details: [t('address'), t('contact_paragraph')],
+      details: [t('footer_address'), t('contact_paragraph')],
       color: 'islamic-green'
     },
     {
@@ -103,6 +103,13 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
       color: 'islamic-gold'
     }
   ];
+
+  // Update phone number for all links
+  const phoneNumber = '+212629916074';
+  // Helper to force French-style phone display (LTR, always with '+')
+  const formatPhone = (num: string) => (
+    <span style={{ direction: 'ltr', unicodeBidi: 'bidi-override', fontFamily: 'monospace' }}>{num}</span>
+  );
 
   return (
     <section id="contact" className="py-20 bg-white">
@@ -144,9 +151,15 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
                         {info.title}
                       </h4>
                       {info.details.map((detail, detailIndex) => (
-                        <p key={detailIndex} className="text-gray-600 leading-relaxed">
-                          {detail}
-                        </p>
+                        info.title === t('address') && typeof detail === 'string' && detail.includes('\n')
+                          ? detail.split('\n').map((line, idx) => (
+                              <p key={detailIndex + '-' + idx} className="text-gray-600 leading-relaxed">{line}</p>
+                            ))
+                          : (
+                              <p key={detailIndex} className="text-gray-600 leading-relaxed">
+                                {info.title === t('contact_us') ? formatPhone(detail) : detail}
+                              </p>
+                            )
                       ))}
                     </div>
                   </div>
@@ -157,15 +170,17 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
             {/* Quick Action Buttons */}
             <div className="mt-8 space-y-4">
               <a
-                href="tel:+212 666462665"
+                href={`tel:${phoneNumber}`}
                 className="flex items-center justify-center space-x-3 space-x-reverse bg-gradient-islamic text-white px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 w-full"
+                style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}
               >
                 <Phone className="w-5 h-5" />
                 <span className="font-semibold">{t('call_now')}</span>
               </a>
               <a
-                href="https://wa.me/212666462665"
+                href={`https://wa.me/212629916074`}
                 className="flex items-center justify-center space-x-3 space-x-reverse bg-green-600 text-white px-6 py-4 rounded-2xl hover:shadow-lg transition-all duration-300 w-full"
+                style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}
               >
                 <MessageCircle className="w-5 h-5" />
                 <span className="font-semibold">{t('whatsapp')}</span>
@@ -210,7 +225,8 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
                     value={form.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-islamic-green-500 focus:ring-2 focus:ring-islamic-green-200 transition-all duration-200"
-                    placeholder="رقم هاتفك"
+                    placeholder={`${t('phone_number')} (+212629916074)`}
+                    style={{ direction: 'ltr', unicodeBidi: 'bidi-override', fontFamily: 'monospace' }}
                     required
                   />
                 </div>

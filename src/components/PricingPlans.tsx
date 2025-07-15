@@ -13,7 +13,7 @@ const PricingPlans: React.FC<PricingPlansProps> = ({ onPlanSelect }) => {
     {
       key: 'plan_basic_name',
       name: t('plan_basic_name'),
-      price: '21',
+      price: '31',
       currency: t('currency'),
       duration: t('plan_basic_duration'),
       icon: Video,
@@ -48,7 +48,7 @@ const PricingPlans: React.FC<PricingPlansProps> = ({ onPlanSelect }) => {
     {
       key: 'plan_full_name',
       name: t('plan_full_name'),
-      price: '99',
+      price: '120',
       currency: t('currency'),
       duration: t('plan_full_duration'),
       icon: Star,
@@ -66,7 +66,7 @@ const PricingPlans: React.FC<PricingPlansProps> = ({ onPlanSelect }) => {
     {
       key: 'plan_diamond_name',
       name: t('plan_diamond_name'),
-      price: '79',
+      price: '99',
       currency: t('currency'),
       duration: t('plan_diamond_duration'),
       icon: Crown,
